@@ -190,7 +190,7 @@ async function buildJs (dir) {
     //   return;
     // }
 
-    if (!name.startsWith('@choko-wallet/')) {
+    if (!name.startsWith(`@${packagePrefix}/`)) {
       return;
     }
     console.log(`*** ${name} ${version}`);
@@ -234,7 +234,6 @@ async function main () {
     .readdirSync('.')
     .filter((dir) => fs.statSync(dir).isDirectory() && fs.existsSync(path.join(process.cwd(), dir, 'src')));
 
-  console.log(dirs)
   for (const dir of dirs) {
     process.chdir(dir);
 
