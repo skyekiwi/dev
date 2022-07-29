@@ -8,6 +8,15 @@
 /* eslint-disable sort-keys */
 
 require('@rushstack/eslint-patch/modern-module-resolution');
+const config = require('../config');
+
+let packagePrefix = 'skyekiwi';
+let license = 'Apache-2.0';
+
+if (process.env.ORG_NAME) {
+  packagePrefix = config[process.env.ORG_NAME].packagePrefix;
+  license = config[process.env.ORG_NAME].license;
+}
 
 module.exports = {
   env: {
@@ -65,8 +74,8 @@ module.exports = {
     'arrow-parens': ['error', 'always'],
     'default-param-last': [0], // conflicts with TS version (this one doesn't allow TS ?)
     'header/header': [2, 'line', [
-      { pattern: ' Copyright \\d{4}(-\\d{4})? @skyekiwi/?' },
-      ' SPDX-License-Identifier: Apache-2.0'
+      { pattern: ` Copyright \\d{4}(-\\d{4})? @${packagePrefix}/?` },
+      ` SPDX-License-Identifier: ${license}`
     ], 2],
     'jsx-quotes': ['error', 'prefer-single'],
     'react/prop-types': [0], // this is a completely broken rule
@@ -105,9 +114,9 @@ module.exports = {
     'simple-import-sort/imports': [2, {
       groups: [
         ['^\u0000'], // all side-effects (0 at start)
-        ['\u0000$', '^@skyekiwi.*\u0000$', '^\\..*\u0000$'], // types (0 at end)
+        ['\u0000$', `^@${packagePrefix}.*\u0000$`, '^\\..*\u0000$'], // types (0 at end)
         ['^[^/\\.]'], // non-skyekiwi
-        ['^@skyekiwi'], // skyekiwi
+        [`^@${packagePrefix}`], // skyekiwi
         ['^\\.\\.(?!/?$)', '^\\.\\./?$', '^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'] // local (. last)
       ]
     }],

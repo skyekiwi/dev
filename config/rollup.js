@@ -14,12 +14,20 @@ import { nodeResolve as pluginResolve } from '@rollup/plugin-node-resolve';
 import fs from 'fs';
 import path from 'path';
 
+let packagePrefix = 'skyekiwi';
+let license = 'Apache-2.0';
+
+if (process.env.ORG_NAME) {
+  packagePrefix = config[process.env.ORG_NAME].packagePrefix;
+  license = config[process.env.ORG_NAME].license;
+}
+
 function sanitizePkg (pkg) {
-  return pkg.replace('@skyekiwi/', '');
+  return pkg.replace(`@/${packagePrefix}`, '');
 }
 
 function createName (input) {
-  return `polkadot-${sanitizePkg(input)}`
+  return `${packagePrefix}-${sanitizePkg(input)}`
     .toLowerCase()
     .replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase());
 }
@@ -43,7 +51,7 @@ export function createOutput (_pkg, external, globals) {
   const pkg = sanitizePkg(_pkg);
 
   return {
-    file: `packages/${pkg}/build/bundle-skyekiwi-${pkg}.js`,
+    file: `packages/${pkg}/build/bundle-${packagePrefix}-${pkg}.js`,
     format: 'iife',
     globals: external.reduce((all, pkg) => ({
       [pkg]: createName(pkg),
