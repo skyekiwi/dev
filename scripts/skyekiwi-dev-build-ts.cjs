@@ -22,6 +22,19 @@ const CPX = ['js', 'cjs', 'mjs', 'json', 'd.ts', 'css', 'gif', 'hbs', 'jpg', 'pn
 
 console.log('$ skyekiwi-dev-build-ts', process.argv.slice(2).join(' '));
 
+const config = {
+  "SKYEKIWI": {
+      branch: "master",
+      packagePrefix: "skyekiwi",
+      license: "Apache-2.0",
+  }, 
+
+  "CHOKO_WALLET": {
+      branch: "master",
+      packagePrefix: "choko-wallet",
+      license: "Apache-2.0",
+  }
+}
 let packagePrefix = 'skyekiwi';
 let license = 'Apache-2.0';
 

@@ -14,6 +14,19 @@ import { nodeResolve as pluginResolve } from '@rollup/plugin-node-resolve';
 import fs from 'fs';
 import path from 'path';
 
+const config = {
+  "SKYEKIWI": {
+      branch: "master",
+      packagePrefix: "skyekiwi",
+      license: "Apache-2.0",
+  }, 
+
+  "CHOKO_WALLET": {
+      branch: "master",
+      packagePrefix: "choko-wallet",
+      license: "Apache-2.0",
+  }
+}
 let packagePrefix = 'skyekiwi';
 let license = 'Apache-2.0';
 
@@ -21,9 +34,8 @@ if (process.env.ORG_NAME) {
   packagePrefix = config[process.env.ORG_NAME].packagePrefix;
   license = config[process.env.ORG_NAME].license;
 }
-
 function sanitizePkg (pkg) {
-  return pkg.replace(`@/${packagePrefix}`, '');
+  return pkg.replace(`@${packagePrefix}/`, '');
 }
 
 function createName (input) {

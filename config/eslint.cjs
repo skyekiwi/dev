@@ -8,8 +8,19 @@
 /* eslint-disable sort-keys */
 
 require('@rushstack/eslint-patch/modern-module-resolution');
-const config = require('../config');
+const config = {
+  "SKYEKIWI": {
+      branch: "master",
+      packagePrefix: "skyekiwi",
+      license: "Apache-2.0",
+  }, 
 
+  "CHOKO_WALLET": {
+      branch: "master",
+      packagePrefix: "choko-wallet",
+      license: "Apache-2.0",
+  }
+}
 let packagePrefix = 'skyekiwi';
 let license = 'Apache-2.0';
 
